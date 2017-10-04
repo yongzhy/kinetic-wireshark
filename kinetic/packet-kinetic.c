@@ -133,7 +133,7 @@ static int dissect_kinetic_tcp (tvbuff_t *tvb, packet_info *pinfo, proto_tree *t
             (void *)value_tvb,  (void *)tvb_get_ptr(value_tvb,0, frame_value_len), frame_value_len);
         }
 
-        col_set_str(pinfo->cinfo, COL_INFO, col_info);
+        col_add_str(pinfo->cinfo, COL_INFO, col_info);
       }
       else // Network packet for Kinetic Value
       {
