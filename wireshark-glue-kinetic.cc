@@ -2,6 +2,8 @@
 #include "wireshark-glue-kinetic.h"
 
 #include <iostream>
+#include <string>
+#include <sstream>
 
 #include <google/protobuf/text_format.h>
 #include <google/protobuf/wire_format.h>
@@ -94,7 +96,13 @@ int wireshark_pb_process_kinetic(proto_tree* tree_root, int item_id, tvbuff_t* t
   }
   else
   {
-    sprintf(col_info, "Kinetic Command: %s", com::seagate::kinetic::proto::Command_MessageType_Name(command.header().messagetype()).c_str());
+    std::stringstream info;
+    info << "Command=" << com::seagate::kinetic::proto::Command_MessageType_Name(command.header().messagetype());
+    if(command.body().has_keyvalue() && command.body().keyvalue().has_key())
+    {
+      info << " Key=" << command.body().keyvalue().key();
+    }
+    strcpy(col_info, info.str().c_str());
   }
 
   return 0;

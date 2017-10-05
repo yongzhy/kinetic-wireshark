@@ -112,7 +112,7 @@ static int dissect_kinetic_tcp (tvbuff_t *tvb, packet_info *pinfo, proto_tree *t
     {
       if( pkt_len>9 && tvb_get_guint8(tvb, 0)=='F')  // Kintic Message Start Frame
       {
-        char col_info[1024] = {'\0'};
+        char col_info[2048] = {'\0'};
         gint msg_len = tvb_get_ntohl(tvb, 1);  
         gint total_value_len = tvb_get_ntohl(tvb, 5); 
         gint frame_value_len = pkt_len - 9 - msg_len; 
